@@ -1,10 +1,6 @@
 name: CI - E2E - Playwright
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ['CI - Node.js']
-    types:
-      - completed
   # TODO: refactor with a workflow_call
   pull_request:
     paths-ignore:
@@ -73,6 +69,10 @@ jobs:
         with:
           name: webpack-stats
           path: client/public/stats.json
+      - name: Show Energy Results
+        uses: green-coding-solutions/eco-ci-energy-estimation@v3 # use hash or @vX here (See note below)
+        with:
+            task: display-results
 
   playwright-run:
     name: E2E Test
@@ -96,6 +96,11 @@ jobs:
           - 1025:1025
 
     steps:
+      - name: Initialize Energy Estimation
+        uses: green-coding-solutions/eco-ci-energy-estimation@v3 # use hash or @vX here (See note below)
+        with:
+          task: start-measurement
+
       - name: Set Action Environment Variables
         run: |
           echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
@@ -131,6 +136,11 @@ jobs:
           pnpm run create:shared
           pnpm run build:curriculum
           pnpm run build:server
+      - name: Checkout Repo Measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@v3 # use hash or @vX here (See note below)
+        with:
+          task: get-measurement
+          label: 'repo checkout'
 
       - name: Seed Database with Certified User
         run: pnpm run seed:certified-user
@@ -154,3 +164,7 @@ jobs:
           name: playwright-report-${{ matrix.browsers }}
           path: playwright/reporter
           retention-days: 30
+      - name: Show Energy Results
+        uses: green-coding-solutions/eco-ci-energy-estimation@v3 # use hash or @vX here (See note below)
+        with:
+            task: display-results

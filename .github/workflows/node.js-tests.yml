@@ -4,10 +4,7 @@ env:
 
 on:
   # Run on push events, but only for the below branches
-  push:
-    branches:
-      - 'main'
-      - 'prod-**'
+  workflow_dispatch:
   # Run on pull requests, but only for the below targets
   pull_request:
     branches:
@@ -32,6 +29,11 @@ jobs:
     steps:
       - name: Checkout Source Files
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Initialize Energy Estimation
+        uses: green-coding-solutions/eco-ci-energy-estimation@v3 # use hash or @vX here (See note below)
+        with:
+          task: start-measurement
 
       - name: Check number of lockfiles
         run: |
@@ -64,7 +66,11 @@ jobs:
       - name: Check formatting
         run: |
           pnpm prettier --check . || [ $? -eq 1 ] && printf "\nTip: Run 'pnpm run format' in your terminal to fix this.\n\n"
-
+      - name: Checkout Repo Measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@v3 # use hash or @vX here (See note below)
+        with:
+            task: get-measurement
+            label: 'repo checkout'
       # The two prefixed installs are for the client update which are not,
       # currently, built as workspaces.
       - name: Lint Source Files
