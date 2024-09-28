@@ -1,4 +1,4 @@
-name: CI - Node.js
+name: CI-kvm - Node.js
 
 on:
   # Run on push events, but only for the below branches
@@ -21,7 +21,7 @@ permissions:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-22.04
+    runs-on: kvm
     strategy:
       matrix:
         node-version: [20.x]
@@ -78,7 +78,7 @@ jobs:
   build:
     name: Build
     needs: lint
-    runs-on: ubuntu-22.04
+    runs-on: kvm
     strategy:
       matrix:
         node-version: [20.x]
@@ -112,7 +112,7 @@ jobs:
   test:
     name: Test
     needs: build
-    runs-on: ubuntu-22.04
+    runs-on: kvm
 
     strategy:
       fail-fast: false
@@ -162,7 +162,7 @@ jobs:
   test-upcoming:
     name: Test - Upcoming Changes
     needs: build
-    runs-on: ubuntu-22.04
+    runs-on: kvm
 
     strategy:
       fail-fast: false
@@ -214,7 +214,7 @@ jobs:
   test-localization:
     name: Test - i18n
     needs: build
-    runs-on: ubuntu-22.04
+    runs-on: kvm
 
     strategy:
       fail-fast: false
