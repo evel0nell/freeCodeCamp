@@ -1,20 +1,14 @@
-name: CI - E2E - 3rd party donation tests
+name: CI - E2E - 3rd party donation tests-kvm
 
 # These are only run on prod-* branches to test the 3rd party donation flow
 
 on:
-  push:
-    branches:
-      - 'prod-**'
-    paths-ignore:
-      - 'docs/**'
-  # to test this ad-hoc
   workflow_dispatch:
 
 jobs:
   do-everything:
     name: Build & Test
-    runs-on: ubuntu-22.04
+    runs-on: kvm
     strategy:
       matrix:
         node-version: [20.x]
