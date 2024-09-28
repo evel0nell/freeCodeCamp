@@ -2,7 +2,7 @@ name: CI - E2E - Containers
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ['CI - Node.js']
+    workflows: ['CI-kvm - Node.js']
     types:
       - completed
   pull_request:
