@@ -1,4 +1,4 @@
-name: i18n - Build Validation
+name: i18n - Build Validation-kvm
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
 jobs:
   ci:
     name: Validate i18n Builds
-    runs-on: ubuntu-22.04
+    runs-on: kvm
     strategy:
       matrix:
         node-version: [20.x]
