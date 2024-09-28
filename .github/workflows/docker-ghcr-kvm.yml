@@ -1,16 +1,11 @@
-name: Docker -- GHCR - Gitpod
+name: Docker -- GHCR - Gitpod-kvm
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'docker/gitpod/*'
 
 jobs:
   build-and-push-image:
-    runs-on: ubuntu-latest
+    runs-on: kvm
     permissions:
       contents: read
       packages: write
