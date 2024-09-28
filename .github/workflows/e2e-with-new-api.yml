@@ -16,7 +16,7 @@ on:
 jobs:
   build-client:
     name: Build Client
-    runs-on: ubuntu-22.04
+    runs-on: kvm
     strategy:
       matrix:
         node-version: [20.x]
@@ -73,7 +73,7 @@ jobs:
 
   build-api:
     name: Build Api (Container)
-    runs-on: ubuntu-22.04
+    runs-on: kvm
     strategy:
       matrix:
         node-version: [20.x]
@@ -92,7 +92,7 @@ jobs:
 
   build-new-api:
     name: Build New Api (Container)
-    runs-on: ubuntu-22.04
+    runs-on: kvm
     strategy:
       matrix:
         node-version: [20.x]
@@ -120,7 +120,7 @@ jobs:
 
   playwright-run:
     name: Run Playwright Tests (with new Api)
-    runs-on: ubuntu-22.04
+    runs-on: kvm
     needs: [build-client, build-new-api]
     strategy:
       fail-fast: false
