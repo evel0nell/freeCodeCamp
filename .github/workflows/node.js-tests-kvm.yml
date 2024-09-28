@@ -1,19 +1,7 @@
 name: CI-kvm - Node.js
 
 on:
-  # Run on push events, but only for the below branches
-  push:
-    branches:
-      - 'main'
-      - 'prod-**'
-  # Run on pull requests, but only for the below targets
-  pull_request:
-    branches:
-      - 'main'
-      - 'next-**'
-  # Run on Merge Queue
-  merge_group:
-    types: [checks_requested]
+  workflow_dispatch:
 
 permissions:
   contents: read
