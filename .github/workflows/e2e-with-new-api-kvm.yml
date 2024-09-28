@@ -1,4 +1,4 @@
-name: CI - E2E - Containers
+name: CI - E2E - Containers -kvm
 on:
   workflow_dispatch:
   workflow_run:
